@@ -1,6 +1,8 @@
 
+using KIShop.BLL.Service;
 using KIShop.DAL;
 using KIShop.DAL.Data;
+using KIShop.DAL.Repository;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -49,6 +51,12 @@ namespace KIShop.PL
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+           
+            
+            builder.Services.AddScoped<ICategoryRepository ,CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
             var app = builder.Build();
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 

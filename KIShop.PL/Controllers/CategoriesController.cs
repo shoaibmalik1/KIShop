@@ -1,7 +1,9 @@
-﻿using KIShop.DAL.Data;
+﻿using KIShop.BLL.Service;
+using KIShop.DAL.Data;
 using KIShop.DAL.DTO.Request;
 using KIShop.DAL.DTO.Response;
 using KIShop.DAL.Models;
+using KIShop.DAL.Repository;
 using KIShop.PL.Resources;
 using Mapster;
 using Microsoft.AspNetCore.Http;
@@ -15,30 +17,31 @@ namespace KIShop.PL.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+
         private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(ApplicationDBContext context,IStringLocalizer<SharedResource> localizer)
+        public CategoriesController(IStringLocalizer<SharedResource> localizer, ICategoryService CategoryService)
         {
-          _context = context;
-          _localizer = localizer;
-        }
-        [HttpGet("")]
-        public IActionResult index()
-        {
-            var categories = _context.Categories.Include(c=>c.Translations).ToList();
-            var response = categories.Adapt<List<CategoryResponse>>();
-            return Ok(new {message= _localizer["Success"].Value, response });
-        }
 
-        [HttpPost("")]
-        public IActionResult Create(CategoryRequest request)
-        {
-            var category =request.Adapt<Category>();
-            _context.Add(category);
-            _context.SaveChanges();
-            return Ok(new { message = _localizer["Success"].Value });
+            _localizer = localizer;
+            _categoryService = CategoryService;
         }
+            [HttpGet("")]
+            public IActionResult index()
+            {
+                var response = _categoryService.GetAllCategories();
+                return Ok(new { message = _localizer["Success"].Value, response });
+            }
 
+            [HttpPost("")]
+            public IActionResult Create(CategoryRequest request)
+            {
+                var response = _categoryService.CreateCategory(request);
+  
+                return Ok(new { message = _localizer["Success"].Value });
+            }
+
+        }
     }
-}
+

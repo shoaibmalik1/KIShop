@@ -12,3 +12,4 @@ C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.DAL\obj\Debug\net9.0\refi
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.DAL\obj\Debug\net9.0\KIShop.DAL.pdb
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.DAL\obj\Debug\net9.0\KIShop.DAL.genruntimeconfig.cache
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.DAL\obj\Debug\net9.0\ref\KIShop.DAL.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.DAL\obj\Debug\net9.0\KIShop.DAL.sourcelink.json
