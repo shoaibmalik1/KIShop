@@ -176,3 +176,9 @@ C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Swash
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.sourcelink.json
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,18 +1,8 @@
 [
   {
-    "ContainingType": "KIShop.PL.Controllers.CategoriesController",
-    "Method": "index",
-    "RelativePath": "api/Categories",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "KIShop.PL.Controllers.CategoriesController",
+    "ContainingType": "KIShop.PL.Areas.Admin.CategoriesController",
     "Method": "Create",
-    "RelativePath": "api/Categories",
+    "RelativePath": "api/admin/Categories",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -26,24 +16,98 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "KIShop.PL.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "ConfirmEmail",
+    "RelativePath": "Api/auth/Account/ConfirmEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "Login",
+    "RelativePath": "Api/auth/Account/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "KIShop.DAL.DTO.Request.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "Register",
+    "RelativePath": "Api/auth/Account/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "KIShop.DAL.DTO.Request.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "ResetPassword",
+    "RelativePath": "Api/auth/Account/ResetPassword",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "KIShop.DAL.DTO.Request.ResetPasswordRequet",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "RequestPasswordReset",
+    "RelativePath": "Api/auth/Account/SendCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "KIShop.DAL.DTO.Request.ForgetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.User.CategoriesController",
+    "Method": "index",
+    "RelativePath": "api/Categories",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[KIShop.PL.WeatherForecast, KIShop.PL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
   }
 ]
