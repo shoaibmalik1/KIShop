@@ -9,10 +9,11 @@ namespace KIShop.DAL.DTO.Response
 {
     public class CategoryResponse
     {
+        public ApplicationUser User {  get; set; } 
+        
         public int Id { get; set; }
 
         public Status Status { get; set; }
-
 
         public List<CategoryTranslationResponse> Translations { get; set; }
     }

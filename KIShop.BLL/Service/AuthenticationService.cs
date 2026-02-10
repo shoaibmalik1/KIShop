@@ -1,10 +1,16 @@
-﻿using KIShop.DAL.DTO.Request;
+﻿
+using KIShop.DAL.DTO.Request;
 using KIShop.DAL.DTO.Response;
-using KIShop.DAL.Migrations;
 using KIShop.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using KIShop.DAL.Migrations;
 using Mapster;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -28,7 +34,7 @@ namespace KIShop.BLL.Service
 
         public AuthenticationService(UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
-            IEmailSender emailSender,SignInManager<ApplicationUser> signInManager)
+            IEmailSender emailSender, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -60,7 +66,7 @@ namespace KIShop.BLL.Service
                         Message = "Account Is Locked ,Try Again",
                     };
                 }
-                var result = await _signInManager.CheckPasswordSignInAsync(user,loginRequest.Password,true);
+                var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, true);
                 if (result.IsLockedOut)
                 {
                     return new LoginResponse()
@@ -78,9 +84,9 @@ namespace KIShop.BLL.Service
                         Message = "plz confurm yout Email"
                     };
                 }
-           
 
-              
+
+
                 if (!result.Succeeded)
                 {
                     return new LoginResponse()
@@ -131,8 +137,8 @@ namespace KIShop.BLL.Service
                 }
                 await _userManager.AddToRoleAsync(user, "User");
 
-                var token =await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                token=Uri.EscapeDataString(token);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                token = Uri.EscapeDataString(token);
 
                 var emailUrl = $"https://localhost:7202/Api/auth/Account/ConfirmEmail?token={token}&userid={user.Id}";
                 await _emailSender.SendEmailAsync(user.Email, "welcome",
@@ -153,26 +159,30 @@ namespace KIShop.BLL.Service
                 };
             }
         }
-        public async Task<bool> ConfirEmailAsync(string token,string userId)
+        public async Task<bool> ConfirEmailAsync(string token, string userId)
         {
-            var user= await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user is null) return false;
 
-            var result=await _userManager.ConfirmEmailAsync(user, token);
-          if (!result.Succeeded) {  return false; }
-          return true;
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded) { return false; }
+            return true;
         }
 
         private async Task<string> GenerateAcssesToken(ApplicationUser user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
             var userClaims = new List<Claim>()
     {
-        new Claim("Id", user.Id.ToString()),
-        new Claim("userName", user.UserName ?? ""),
-        new Claim("email", user.Email ?? "")
+        new Claim(ClaimTypes.NameIdentifier,user.Id),
+        new Claim(ClaimTypes.Name, user.UserName ),
+        new Claim(ClaimTypes.Email,user.Email),
+        new Claim(ClaimTypes.Role,string.Join(',',roles))
     };
+            
 
+           
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!)
             );
@@ -192,7 +202,7 @@ namespace KIShop.BLL.Service
 
         public async Task<ForgetPasswordResponse> RequestPasswordReset(ForgetPasswordRequest request)
         {
-            var user =await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
                 return new ForgetPasswordResponse
@@ -203,7 +213,7 @@ namespace KIShop.BLL.Service
 
             }
             var random = new Random();
-            var code=random.Next(1000,9999).ToString();
+            var code = random.Next(1000, 9999).ToString();
             user.CodeResetPassword = code;
             user.PasswordResetCodeExpiry = DateTime.UtcNow.AddMinutes(15);
 
@@ -216,9 +226,9 @@ namespace KIShop.BLL.Service
                 Success = false,
                 Message = "code send to your Email"
             };
-        
+
         }
-      
+
         public async Task<ResetPasswordResponse> ResetPassword(ResetPasswordRequet request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
@@ -246,9 +256,9 @@ namespace KIShop.BLL.Service
                     Success = false,
                     Message = "Code Expierd",
                 };
-            } 
-            
-            var token =await _userManager.GeneratePasswordResetTokenAsync(user);
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, request.newPassword);
             if (!result.Succeeded)
             {
@@ -256,7 +266,7 @@ namespace KIShop.BLL.Service
                 {
                     Success = false,
                     Message = "Password Reset Failed ",
-                    Errors = result.Errors.Select(e =>e.Description).ToList()
+                    Errors = result.Errors.Select(e => e.Description).ToList()
                 };
             }
 
@@ -272,5 +282,3 @@ namespace KIShop.BLL.Service
         }
     }
 }
-    
-

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 
 namespace KIShop.PL.Areas.User
 {
@@ -27,9 +28,9 @@ namespace KIShop.PL.Areas.User
             _category = category;
         }
             [HttpGet("")]
-            public IActionResult index()
+            public async Task<IActionResult> index()
             {
-                var response = _category.GetAllCategories();
+                var response =await _category.GetAllCategories();
                 return Ok(new { message = _localizer["Success"].Value, response });
             }
       

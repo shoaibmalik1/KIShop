@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KIShop.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc00114e91c69b2e62afdc5965f81fde8889b788")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38917ab6b032f69c4007df0703ee169efc96244c")]
 [assembly: System.Reflection.AssemblyProductAttribute("KIShop.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KIShop.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

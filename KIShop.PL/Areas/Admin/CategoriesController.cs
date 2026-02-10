@@ -1,34 +1,90 @@
 ﻿using KIShop.BLL.Service;
 using KIShop.DAL.DTO.Request;
+using KIShop.DAL.Models;
 using KIShop.PL.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace KIShop.PL.Areas.Admin
 {
     [Route("api/admin/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : ControllerBase
     {
 
         private readonly IStringLocalizer<SharedResource> _localizer;
-        private readonly ICategoryService _category;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(IStringLocalizer<SharedResource> localizer, ICategoryService category)
+
+        public CategoriesController(IStringLocalizer<SharedResource> localizer, ICategoryService categoryService)
         {
 
             _localizer = localizer;
-            _category = category;
+            _categoryService = categoryService;
+
         }
 
         [HttpPost("")]
-        public IActionResult Create(CategoryRequest request)
+        public async Task<IActionResult> Create([FromBody] CategoryRequest request)
         {
-            var response = _category.CreateCategory(request);
+
+            var response = await _categoryService.CreateCategory(request);
             return Ok(new { message = _localizer["Success"].Value });
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory([FromBody] int id, [FromBody] CategoryRequest request)
+        {
+
+            var result = await _categoryService.UpdateCategoryAsync(id, request);
+            if (!result.Success)
+            {
+                if (result.Message.Contains("not found"))
+                {
+                    return NotFound(result);
+                }
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch("toggle-status/{id}")]
+        public async Task<IActionResult>ToggleStatus(int id)
+        {
+        var result=await _categoryService.ToggleStatus(id);
+            if (!result.Success)
+            {
+                if (result.Message.Contains("not found"))
+                {
+                    return NotFound(result);
+                }
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id) 
+        {
+        var result =await _categoryService.DeleteCategoryAsync(id);
+            if (!result.Success)
+            {
+                if (result.Message.Contains("not found"))
+                {
+                    return NotFound(result);
+                }
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }

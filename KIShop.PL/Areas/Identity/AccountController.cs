@@ -48,12 +48,14 @@ namespace KIShop.PL.Areas.Identity
         public async Task<IActionResult> ConfirmEmail(string token,string userId)
         {
             var result = await _authenticationService.ConfirEmailAsync(token ,userId);
+            
+            if (!result)
+                return BadRequest("Invalid Token");
 
-
-            return Ok(result);
-
+            return Ok("Email Confirmed");
 
         }
+
         [HttpPost("SendCode")]
         public async Task<IActionResult> RequestPasswordReset(ForgetPasswordRequest request)
         {

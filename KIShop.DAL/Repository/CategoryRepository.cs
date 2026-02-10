@@ -1,4 +1,5 @@
 ﻿using KIShop.DAL.Data;
+using KIShop.DAL.DTO.Response;
 using KIShop.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,18 +18,40 @@ namespace KIShop.DAL.Repository
             _context = context;
         }
 
-        public Category Create(Category Request)
+        public async Task<Category>  CreateAsync(Category Request)
         {
-            _context.Categories.Add( Request );
-            _context.SaveChanges();
+           await _context.Categories.AddAsync( Request );
+            await _context.SaveChangesAsync();
 
             return Request;
         }
 
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAllAsync()
         {
-            return _context.Categories.Include(c => c.Translations).ToList();
+            return await _context.Categories.Include(c=>c.User).Include(c => c.Translations).ToListAsync();
 
         }
+        public async Task<Category?> FindByIdAsync(int id)
+        {
+            return await _context.Categories.Include(c => c.Translations)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+        }
+      public async  Task DeleteAsync(Category category)
+        {
+            _context.Categories.Remove(category);
+
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task<Category> UpdateAsync(Category category)
+        {
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
+
     }
 }
