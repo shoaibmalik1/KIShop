@@ -20,6 +20,9 @@ namespace KIShop.DAL.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryTranslation> categoryTranslation { get; set; }
+        public DbSet<Product> products { get; set; }
+        public DbSet<ProductTranslation> productTranslation { get; set; }
+
        
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options,
@@ -40,6 +43,10 @@ namespace KIShop.DAL.Data
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
+
+            builder.Entity<Category>().HasOne(c=>c.User)
+                .WithMany().HasForeignKey(c => c.CraetedBy)
+                .OnDelete(DeleteBehavior.NoAction);
             
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

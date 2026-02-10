@@ -3,6 +3,7 @@ using KIShop.DAL.DTO.Response;
 using KIShop.DAL.Models;
 using KIShop.DAL.Repository;
 using Mapster;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -25,21 +26,7 @@ namespace KIShop.BLL.Service
         }
 
 
-        //public Category CreateCategory(Category Request)
-        //{
-        //    throw new NotImplementedException();
-        //    //var response = categories.Adapt<List<CategoryResponse>>();
-        //    var category = Request.Adapt<Category>();
-        //    _categoryRepository.Create(category);
-        //    return categories.Adapt<CategoryResponse>();
-        //}
-
-        //public List<CategoryResponse> GetAllCategories()
-        //{
-        //    var categories = _categoryRepository.GetAll();
-        //    var response = categories.Adapt<List<CategoryResponse>>();
-        //    return response;
-        //}
+ 
         
         public async Task<CategoryResponse> CreateCategory(CategoryRequest Request)
         {
@@ -51,12 +38,23 @@ namespace KIShop.BLL.Service
            
         }
 
-        public async Task<List<CategoryResponse>> GetAllCategories()
+        public async Task<List<CategoryResponse>> GetAllCategoriesForAdmin()
         {
             var categories =await _categoryRepository.GetAllAsync();
+
             var response = categories.Adapt<List<CategoryResponse>>();
             return response;
         }
+
+        public async Task<List<CategoryUserResponse>> GetAllCategoriesForUser(string lang = "en")
+        {
+
+            var categories = await _categoryRepository.GetAllAsync();
+
+            var response =categories.BuildAdapter().AddParameters("lang",lang).AdaptToType<List<CategoryUserResponse>>();
+            return response;
+        }
+
 
         public async Task<BaseResponse> UpdateCategoryAsync(int id,CategoryRequest request)
         {

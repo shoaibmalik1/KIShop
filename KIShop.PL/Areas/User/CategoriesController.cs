@@ -28,9 +28,9 @@ namespace KIShop.PL.Areas.User
             _category = category;
         }
             [HttpGet("")]
-            public async Task<IActionResult> index()
+            public async Task<IActionResult> index([FromQuery]string lang="en")
             {
-                var response =await _category.GetAllCategories();
+                var response =await _category.GetAllCategoriesForUser(lang);
                 return Ok(new { message = _localizer["Success"].Value, response });
             }
       

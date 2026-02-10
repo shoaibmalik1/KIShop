@@ -10,5 +10,7 @@ namespace KIShop.DAL.Models
     {
        
         public List<CategoryTranslation> Translations { get; set; }
+
+        public List<Product>products { get; set; }
     }
 }

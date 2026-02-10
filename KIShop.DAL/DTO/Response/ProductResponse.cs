@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace KIShop.DAL.DTO.Response
 {
-    public class CategoryResponse
+    public class ProductResponse
     {
-        public int Id{ get; set; }
+        public int Id { get; set; }
 
-        public ApplicationUser CreatedBy {  get; set; }
+
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Status Status { get; set; }
+
+        public string MainImage {  get; set; }
 
         public List<CategoryTranslationResponse> Translations { get; set; }
     }

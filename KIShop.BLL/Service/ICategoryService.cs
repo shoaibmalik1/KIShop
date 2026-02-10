@@ -11,7 +11,9 @@ namespace KIShop.BLL.Service
 {
     public interface ICategoryService
     {
-        Task<List<CategoryResponse>> GetAllCategories();
+        Task<List<CategoryResponse>> GetAllCategoriesForAdmin();
+
+        Task<List<CategoryUserResponse>> GetAllCategoriesForUser(string lang = "en");
 
         Task<CategoryResponse> CreateCategory(CategoryRequest Request);
 

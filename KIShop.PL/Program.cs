@@ -1,4 +1,5 @@
 
+using KIShop.BLL.MapsterConfigrations;
 using KIShop.BLL.Service;
 using KIShop.DAL;
 using KIShop.DAL.Data;
@@ -140,6 +141,8 @@ namespace KIShop.PL
 
 
             AppConfigration.Config(builder.Services);
+            MapsterConfig.MapsterConfRegister();
+
             var app = builder.Build();
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 

@@ -29,6 +29,14 @@ namespace KIShop.PL.Areas.Admin
 
         }
 
+        [HttpGet("")]
+        public async Task<IActionResult> index([FromQuery] string lang = "en")
+        {
+            var response = await _categoryService.GetAllCategoriesForAdmin();
+            return Ok(new { message = _localizer["Success"].Value, response });
+        }
+
+
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] CategoryRequest request)
         {

@@ -4,18 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KIShop.DAL.Models
+namespace KIShop.DAL.DTO.Response
 {
-    public class CategoryTranslation
+    public class CategoryUserResponse
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public string Language { get; set; }
-
-        public int CategoryId { get; set; 
-        }
-        public Category Category { get; set; }
     }
 }
