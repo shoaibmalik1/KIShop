@@ -43,15 +43,17 @@ namespace KIShop.DAL.Utils
                     EmailConfirmed = true,
                 };
 
-                await _userManager.CreateAsync(user1,"Pass@1122");
-                await _userManager.CreateAsync(user2,"Pass@1122");
-                await _userManager.CreateAsync(user3,"Pass@1122");
+                await _userManager.CreateAsync(user1, "Pass@1122334455");
+                await _userManager.CreateAsync(user2, "Pass@1122334455");
+                await _userManager.CreateAsync(user3, "Pass@1122334455");
 
-                await _userManager.AddToRoleAsync(user1, "SuperAdmn");
+                await _userManager.AddToRoleAsync(user1, "SuperAdmin");
                 await _userManager.AddToRoleAsync(user2, "Admin");
-                await _userManager.AddToRoleAsync(user3, "user");
+                await _userManager.AddToRoleAsync(user3, "User");
 
             }
         }
+
     }
-}
+    }
+

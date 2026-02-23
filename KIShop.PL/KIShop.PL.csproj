@@ -19,4 +19,8 @@
     <ProjectReference Include="..\KIShop.BLL\KIShop.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+
 </Project>

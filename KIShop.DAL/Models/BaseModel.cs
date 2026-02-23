@@ -13,7 +13,7 @@ namespace KIShop.DAL.Models
 
         public Status Status { get; set; }
 
-        public string CraetedBy {  get; set; }
+        public string CreatedBy {  get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -21,7 +21,7 @@ namespace KIShop.DAL.Models
 
         public DateTime UpdatedAt { get; set; }
 
-        [ForeignKey("CraetedBy")]
+        [ForeignKey("CreatedBy")]
         public ApplicationUser User { get; set; }
     }
 }

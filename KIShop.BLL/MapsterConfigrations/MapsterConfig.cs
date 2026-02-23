@@ -19,7 +19,10 @@ namespace KIShop.BLL.MapsterConfigrations
             TypeAdapterConfig<Category, CategoryResponse>.NewConfig().Map(dest => dest.CreatedBy, source => source.User.UserName);
             
             
-            TypeAdapterConfig<Category, CategoryUserResponse>.NewConfig().Map(dest => dest.Name, source => source.Translations.Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString()).Select(t => t.Name).FirstOrDefault());
+            TypeAdapterConfig<Category, CategoryUserResponse>.NewConfig()
+                .Map(dest => dest.Name,source => source.Translations
+                .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
+                .Select(t => t.Name).FirstOrDefault());
         }
     }
 }

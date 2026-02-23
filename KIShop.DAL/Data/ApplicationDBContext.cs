@@ -45,22 +45,33 @@ namespace KIShop.DAL.Data
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
             builder.Entity<Category>().HasOne(c=>c.User)
-                .WithMany().HasForeignKey(c => c.CraetedBy)
+                .WithMany().HasForeignKey(c => c.CreatedBy)
                 .OnDelete(DeleteBehavior.NoAction);
-            
+
+            builder.Entity<Product>()
+    .Property(p => p.Price)
+    .HasPrecision(18, 2);
+
+            builder.Entity<Product>()
+                .Property(p => p.Discount)
+                .HasPrecision(18, 2);
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var entries = ChangeTracker.Entries<BaseModel>();
 
+
+            if(_httpContextAccessor.HttpContext!= null)
+            {
             var cerrentUserId = _httpContextAccessor.HttpContext.
                 User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+           
             foreach (var entityEntry in entries)
             {
                 if (entityEntry.State == EntityState.Added)
                 {
-                    entityEntry.Property(x => x.CraetedBy).CurrentValue = cerrentUserId;
+                    entityEntry.Property(x => x.CreatedBy).CurrentValue = cerrentUserId;
                     entityEntry.Property(x => x.CreatedAt).CurrentValue = DateTime.UtcNow;
                 }
                 else if (entityEntry.State == EntityState.Modified)
@@ -71,7 +82,7 @@ namespace KIShop.DAL.Data
 
 
             }
-
+            }
             return base.SaveChangesAsync(cancellationToken);
         }
 
@@ -86,7 +97,7 @@ namespace KIShop.DAL.Data
             {
                 if (entityEntry.State == EntityState.Added)
                 {
-                    entityEntry.Property(x=>x.CraetedBy).CurrentValue= cerrentUserId;
+                    entityEntry.Property(x=>x.CreatedBy).CurrentValue= cerrentUserId;
                     entityEntry.Property(x=>x.CreatedAt).CurrentValue= DateTime.UtcNow;
                 }else if (entityEntry.State == EntityState.Modified)
                 {

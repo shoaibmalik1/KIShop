@@ -134,11 +134,11 @@ namespace KIShop.PL
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            //builder.Services.AddHttpContextAccessor();
 
 
 
-
-
+     
 
             AppConfigration.Config(builder.Services);
             MapsterConfig.MapsterConfRegister();
@@ -146,7 +146,7 @@ namespace KIShop.PL
             var app = builder.Build();
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
-
+        
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -157,18 +157,20 @@ namespace KIShop.PL
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
             app.UseAuthentication();
-           
+            app.UseAuthorization();
+
+
 
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var seeders = services.GetServices<ISeedData>();
 
-                foreach (var seeder in seeders) { 
-                await seeder.DataSeed();
-                }
+                var roleSeeder = services.GetRequiredService<RoleSeedData>();
+                await roleSeeder.DataSeed();
+
+                var userSeeder = services.GetRequiredService<UserSeedData>();
+                await userSeeder.DataSeed();
             }
 
             app.MapControllers();

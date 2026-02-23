@@ -13,20 +13,23 @@ namespace KIShop.DAL.Utils
     {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RoleSeedData(RoleManager<IdentityRole> roleManager) {
+        public RoleSeedData(RoleManager<IdentityRole> roleManager)
+        {
             _roleManager = roleManager;
         }
         public async Task DataSeed()
         {
-            string[] roles = ["SuperAdmin", "Admin", "User"];
-            if (!await _roleManager.Roles.AnyAsync())
+            string[] roles = { "SuperAdmin", "Admin", "User" };
+
+            foreach (var role in roles)
             {
-                foreach (var role in roles)
+                if (!await _roleManager.RoleExistsAsync(role))
                 {
-                   await _roleManager.CreateAsync(new IdentityRole(role));
+                    await _roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
         }
     }
+
     //_roleManager.CreateAsync(new IdentityRole(role));
 }

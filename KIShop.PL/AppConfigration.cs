@@ -12,9 +12,14 @@ namespace KIShop.PL
             Services.AddScoped<ICategoryRepository, CategoryRepository>();
             Services.AddScoped<ICategoryService, CategoryService>();
             Services.AddScoped<IAuthenticationService, AuthenticationService>();
-            Services.AddScoped<ISeedData, RoleSeedData>();
-            Services.AddScoped<ISeedData, UserSeedData>();
+            Services.AddScoped<RoleSeedData>();
+            Services.AddScoped<UserSeedData>();
             Services.AddTransient<IEmailSender, EmailSender>();
+
+
+            Services.AddScoped<IFileService, FileService>();
+            Services.AddScoped<IProductService, ProductService>();
+            Services.AddTransient<IProductRepository, ProductRepository>();
 
         }
     }

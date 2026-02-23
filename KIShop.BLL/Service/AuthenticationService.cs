@@ -176,13 +176,16 @@ namespace KIShop.BLL.Service
             var userClaims = new List<Claim>()
     {
         new Claim(ClaimTypes.NameIdentifier,user.Id),
-        new Claim(ClaimTypes.Name, user.UserName ),
-        new Claim(ClaimTypes.Email,user.Email),
-        new Claim(ClaimTypes.Role,string.Join(',',roles))
+        new Claim(ClaimTypes.Name, user.UserName ??""),
+        new Claim(ClaimTypes.Email,user.Email ?? ""),
+        //new Claim(ClaimTypes.Role,string.Join(',',roles))
     };
-            
+            foreach (var role in roles)
+            {
+                userClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
-           
+
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!)
             );

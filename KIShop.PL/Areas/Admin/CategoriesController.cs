@@ -30,7 +30,7 @@ namespace KIShop.PL.Areas.Admin
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> index([FromQuery] string lang = "en")
+        public async Task<IActionResult> index()
         {
             var response = await _categoryService.GetAllCategoriesForAdmin();
             return Ok(new { message = _localizer["Success"].Value, response });
@@ -45,7 +45,7 @@ namespace KIShop.PL.Areas.Admin
             return Ok(new { message = _localizer["Success"].Value });
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory([FromBody] int id, [FromBody] CategoryRequest request)
+        public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromBody] CategoryRequest request)
         {
 
             var result = await _categoryService.UpdateCategoryAsync(id, request);
