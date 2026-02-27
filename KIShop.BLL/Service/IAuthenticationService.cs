@@ -1,5 +1,6 @@
 ﻿using KIShop.DAL.DTO.Request;
 using KIShop.DAL.DTO.Response;
+using KIShop.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace KIShop.BLL.Service
         Task<bool> ConfirEmailAsync(string token, string userId);
         Task<ForgetPasswordResponse> RequestPasswordReset(ForgetPasswordRequest request);
         Task<ResetPasswordResponse> ResetPassword(ResetPasswordRequet request);
+        Task<LoginResponse> RefreshTokenAsync(TokenApiModel request);
     }
 }

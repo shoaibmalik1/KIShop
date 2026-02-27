@@ -22,6 +22,7 @@ namespace KIShop.DAL.Data
         public DbSet<CategoryTranslation> categoryTranslation { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<ProductTranslation> productTranslation { get; set; }
+        public DbSet<ProductImage> ProductImage { get; set; }
 
        
 

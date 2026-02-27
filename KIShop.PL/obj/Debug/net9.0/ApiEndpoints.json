@@ -80,6 +80,16 @@
   },
   {
     "ContainingType": "KIShop.PL.Areas.Admin.ProductsController",
+    "Method": "index",
+    "RelativePath": "api/admin/Products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Admin.ProductsController",
     "Method": "Create",
     "RelativePath": "api/admin/Products",
     "HttpMethod": "POST",
@@ -109,6 +119,11 @@
       {
         "Name": "MainImage",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "SubImages",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
         "IsRequired": false
       },
       {
@@ -151,6 +166,22 @@
       {
         "Name": "request",
         "Type": "KIShop.DAL.DTO.Request.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.Identity.AccountController",
+    "Method": "RefreshToken",
+    "RelativePath": "Api/auth/Account/RefreshToken",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "KIShop.DAL.Models.TokenApiModel",
         "IsRequired": true
       }
     ],
@@ -208,6 +239,22 @@
     "ContainingType": "KIShop.PL.Areas.User.CategoriesController",
     "Method": "index",
     "RelativePath": "api/Categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lang",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KIShop.PL.Areas.User.ProductsController",
+    "Method": "index",
+    "RelativePath": "api/Products",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

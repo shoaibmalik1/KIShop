@@ -182,3 +182,4 @@ C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Micro
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\bin\Debug\net9.0\KIShop.PL.staticwebassets.runtime.json

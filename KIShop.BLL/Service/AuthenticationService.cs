@@ -22,6 +22,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace KIShop.BLL.Service
 {
@@ -31,15 +32,17 @@ namespace KIShop.BLL.Service
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ITokenService _tokenService;
 
         public AuthenticationService(UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
-            IEmailSender emailSender, SignInManager<ApplicationUser> signInManager)
+            IEmailSender emailSender, SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
         {
             _userManager = userManager;
             _configuration = configuration;
             _emailSender = emailSender;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
         public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
@@ -96,11 +99,20 @@ namespace KIShop.BLL.Service
 
                     };
                 }
+                //<==========={ Refresh Token }=================>
+                var accessToken = await _tokenService.GenerateAccessToken(user);
+                var refreshToken = _tokenService.GenerateRefreshToken();
+
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+                await _userManager.UpdateAsync(user);
                 return new LoginResponse()
                 {
                     Success = true,
                     Message = "Login succesfully",
-                    AccessToken = await GenerateAcssesToken(user)
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
 
 
                 };
@@ -170,38 +182,7 @@ namespace KIShop.BLL.Service
             return true;
         }
 
-        private async Task<string> GenerateAcssesToken(ApplicationUser user)
-        {
-            var roles = await _userManager.GetRolesAsync(user);
-            var userClaims = new List<Claim>()
-    {
-        new Claim(ClaimTypes.NameIdentifier,user.Id),
-        new Claim(ClaimTypes.Name, user.UserName ??""),
-        new Claim(ClaimTypes.Email,user.Email ?? ""),
-        //new Claim(ClaimTypes.Role,string.Join(',',roles))
-    };
-            foreach (var role in roles)
-            {
-                userClaims.Add(new Claim(ClaimTypes.Role, role));
-            }
 
-
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!)
-            );
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: userClaims,
-                expires: DateTime.Now.AddMinutes(100),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
 
         public async Task<ForgetPasswordResponse> RequestPasswordReset(ForgetPasswordRequest request)
         {
@@ -282,6 +263,42 @@ namespace KIShop.BLL.Service
                 Message = "Password reset Sussesfully"
             };
 
+        }
+        public async Task<LoginResponse> RefreshTokenAsync(TokenApiModel request)
+        {
+            string accessToken = request.AccessToken;
+            string refreshToken = request.RefreshToken;
+
+            var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
+
+            var userName = principal.Identity.Name;
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user == null || user.RefreshToken != refreshToken|| user.RefreshTokenExpiryTime<=DateTime.UtcNow) {
+
+                return new LoginResponse()
+                {
+                    Success = false,
+                    Message = "Invalid client request"
+                };
+            }
+            else
+            {
+                var newAccessToken = await _tokenService.GenerateAccessToken(user);
+                var newRefreshToken =  _tokenService.GenerateRefreshToken();
+                user.RefreshToken = newRefreshToken;
+                
+                await _userManager.UpdateAsync(user);
+
+                return new LoginResponse
+                {
+                    Success = true,
+                    Message = "Token Refresh Successfully",
+                    AccessToken=newAccessToken,
+                    RefreshToken=newRefreshToken,
+
+                };
+            }
         }
     }
 }

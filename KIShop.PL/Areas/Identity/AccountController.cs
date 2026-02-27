@@ -1,7 +1,7 @@
 ﻿using KIShop.BLL.Service;
 using KIShop.DAL.DTO.Request;
 using KIShop.DAL.DTO.Response;
-
+using KIShop.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KIShop.PL.Areas.Identity
@@ -80,5 +80,19 @@ namespace KIShop.PL.Areas.Identity
 
 
         }
+
+        [HttpPatch("RefreshToken")]
+        public async Task<IActionResult> RefreshToken(TokenApiModel request)
+        {
+            var result = await _authenticationService.RefreshTokenAsync(request);
+            if (!result.Success) { 
+            return BadRequest(result);
+            }
+
+            return Ok(result);
+
+
+        }
+
     }
 }

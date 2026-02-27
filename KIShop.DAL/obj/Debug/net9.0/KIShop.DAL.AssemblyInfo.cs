@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KIShop.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc1c8f3e9cec7c5799a243deb10d91ea248d7ee3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+777ad32bc9273c90af803b953f8f859dc1f2aeae")]
 [assembly: System.Reflection.AssemblyProductAttribute("KIShop.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KIShop.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

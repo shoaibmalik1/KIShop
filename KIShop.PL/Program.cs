@@ -71,6 +71,7 @@ namespace KIShop.PL
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
+                ClockSkew=TimeSpan.Zero,
                 ValidIssuer = builder.Configuration["jwt:Issuer"],
                 ValidAudience = builder.Configuration["jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:SecretKey"]))
@@ -155,8 +156,8 @@ namespace KIShop.PL
                 app.UseSwaggerUI();
             }
 
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

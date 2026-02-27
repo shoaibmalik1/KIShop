@@ -1,4 +1,5 @@
 ﻿using KIShop.DAL.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace KIShop.DAL.DTO.Response
         public Status Status { get; set; }
 
         public string MainImage {  get; set; }
+
+  
 
         public List<CategoryTranslationResponse> Translations { get; set; }
     }

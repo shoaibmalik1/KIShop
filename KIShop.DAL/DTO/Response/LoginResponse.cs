@@ -10,6 +10,7 @@ namespace KIShop.DAL.DTO.Response
     {
      
         public String? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
 
     }
 }
