@@ -23,6 +23,7 @@ namespace KIShop.DAL.Data
         public DbSet<Product> products { get; set; }
         public DbSet<ProductTranslation> productTranslation { get; set; }
         public DbSet<ProductImage> ProductImage { get; set; }
+        public DbSet<Cart>carts { get; set; }
 
        
 
@@ -47,6 +48,10 @@ namespace KIShop.DAL.Data
 
             builder.Entity<Category>().HasOne(c=>c.User)
                 .WithMany().HasForeignKey(c => c.CreatedBy)
+                .OnDelete(DeleteBehavior.NoAction);
+          
+            builder.Entity<Cart>().HasOne(c=>c.User)
+                .WithMany().HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Product>()

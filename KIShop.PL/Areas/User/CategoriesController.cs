@@ -14,6 +14,7 @@ namespace KIShop.PL.Areas.User
     //[Authorize]
     public class CategoriesController : ControllerBase
     {
+
      
       
        

@@ -22,6 +22,8 @@ namespace KIShop.PL
             Services.AddScoped<IFileService, FileService>();
             Services.AddScoped<IProductService, ProductService>();
             Services.AddTransient<IProductRepository, ProductRepository>();
+            Services.AddTransient<ICartService, CartService>();
+            Services.AddTransient<ICartRepository, CartRepository>();
 
         }
     }

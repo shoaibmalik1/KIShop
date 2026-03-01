@@ -66,7 +66,6 @@ C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KISho
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.AssemblyInfoInputs.cache
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.AssemblyInfo.cs
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.csproj.CoreCompileInputs.cache
-C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\KIShop.PL.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\Shoaib Malik\Desktop\Project\KIShop.PL\KIShop.PL\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
